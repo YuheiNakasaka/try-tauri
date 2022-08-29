@@ -4,13 +4,39 @@ import Image from "next/image";
 import reactLogo from "../assets/react.svg";
 import tauriLogo from "../assets/tauri.svg";
 import nextLogo from "../assets/next.svg";
+import {open} from "@tauri-apps/api/dialog";
+import { emit } from "@tauri-apps/api/event";
+
+type MyAdder = {
+  sum: number;
+  msg: string;
+}
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
+  const [sum, setSum] = useState(0);
   const [name, setName] = useState("");
 
   async function greet() {
     setGreetMsg(await invoke("greet", { name }));
+  }
+
+  async function simpleCommand() {
+    invoke('simple_command');
+  }
+
+  async function addCommand() {
+    invoke('add_command', {adder: {sum: sum, msg: 'my message'}}).then((adder: MyAdder) => {
+      setSum(adder.sum);
+    });
+  }
+
+  function openFiles() {
+    open().then(files => console.log(files));
+  }
+
+  function emitMessage() {
+    emit('front-to-back', "Hello from frontend");
   }
 
   return (
@@ -68,6 +94,18 @@ function App() {
           <button type="button" onClick={() => greet()}>
             Greet
           </button>
+        </div>
+        <div>
+          <button onClick={simpleCommand}>simple</button>
+        </div>
+        <div>
+          <button onClick={addCommand}>add: { sum }</button>
+        </div>
+        <div>
+          <button onClick={openFiles}>file</button>
+        </div>
+        <div>
+          <button onClick={emitMessage}>emit</button>
         </div>
       </div>
 
