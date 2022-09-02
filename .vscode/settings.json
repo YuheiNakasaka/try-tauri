@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.inlayHints.fontFamily": "Courier New",
+  "editor.inlayHints.fontSize": 14,
+  "workbench.colorCustomizations": {
+    "editorInlayHint.foreground": "#868686f0",
+    "editorInlayHint.background": "#3d3d3d48",
+    "editorInlayHint.typeForeground": "#fdb6fdf0",
+    "editorInlayHint.parameterForeground": "#fdb6fdf0"
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true
+  },
+  "[toml]": {
+    "editor.formatOnSave": false
+  },
+  "rust-analyzer.linkedProjects": [
+    "/Users/razokulover/src/github.com/YuheiNakasaka/rust-apps/try-tauri/src-tauri/Cargo.toml"
+  ]
+}
