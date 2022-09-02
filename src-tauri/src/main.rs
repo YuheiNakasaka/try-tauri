@@ -4,6 +4,7 @@
 )]
 
 use serde::{Deserialize, Serialize};
+use tauri::Manager;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct MyAdder {
@@ -33,8 +34,8 @@ fn add_command(adder: MyAdder) -> MyAdder {
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
-            let id = app.listen_global("front-to-back", |event| {
-                println!("payload: {:?}", event.payload.unwrap())
+            app.listen_global("front-to-back", |event| {
+                println!("payload: {:?}", event.payload().unwrap())
             });
             Ok(())
         })

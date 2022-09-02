@@ -1,42 +1,44 @@
-import { useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
-import Image from "next/image";
-import reactLogo from "../assets/react.svg";
-import tauriLogo from "../assets/tauri.svg";
-import nextLogo from "../assets/next.svg";
-import {open} from "@tauri-apps/api/dialog";
-import { emit } from "@tauri-apps/api/event";
+import { useState } from 'react'
+import { invoke } from '@tauri-apps/api/tauri'
+import Image from 'next/image'
+import reactLogo from '../assets/react.svg'
+import tauriLogo from '../assets/tauri.svg'
+import nextLogo from '../assets/next.svg'
+import { open } from '@tauri-apps/api/dialog'
+import { emit } from '@tauri-apps/api/event'
 
 type MyAdder = {
-  sum: number;
-  msg: string;
+  sum: number
+  msg: string
 }
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [sum, setSum] = useState(0);
-  const [name, setName] = useState("");
+  const [greetMsg, setGreetMsg] = useState('')
+  const [sum, setSum] = useState(0)
+  const [name, setName] = useState('')
 
   async function greet() {
-    setGreetMsg(await invoke("greet", { name }));
+    setGreetMsg(await invoke('greet', { name }))
   }
 
   async function simpleCommand() {
-    invoke('simple_command');
+    invoke('simple_command')
   }
 
   async function addCommand() {
-    invoke('add_command', {adder: {sum: sum, msg: 'my message'}}).then((adder: MyAdder) => {
-      setSum(adder.sum);
-    });
+    invoke('add_command', { adder: { sum: sum, msg: 'my message' } }).then(
+      (adder: MyAdder) => {
+        setSum(adder.sum)
+      }
+    )
   }
 
   function openFiles() {
-    open().then(files => console.log(files));
+    open().then((files) => console.log(files))
   }
 
   function emitMessage() {
-    emit('front-to-back', "Hello from frontend");
+    emit('front-to-back', 'Hello from frontend')
   }
 
   return (
@@ -45,7 +47,7 @@ function App() {
 
       <div className="row">
         <span className="logos">
-          <a href="https://nextjs.org" target="_blank">
+          <a href="https://nextjs.org" target="_blank" rel="noreferrer">
             <Image
               width={144}
               height={144}
@@ -56,7 +58,7 @@ function App() {
           </a>
         </span>
         <span className="logos">
-          <a href="https://tauri.app" target="_blank">
+          <a href="https://tauri.app" target="_blank" rel="noreferrer">
             <Image
               width={144}
               height={144}
@@ -67,7 +69,7 @@ function App() {
           </a>
         </span>
         <span className="logos">
-          <a href="https://reactjs.org" target="_blank">
+          <a href="https://reactjs.org" target="_blank" rel="noreferrer">
             <Image
               width={144}
               height={144}
@@ -99,7 +101,7 @@ function App() {
           <button onClick={simpleCommand}>simple</button>
         </div>
         <div>
-          <button onClick={addCommand}>add: { sum }</button>
+          <button onClick={addCommand}>add: {sum}</button>
         </div>
         <div>
           <button onClick={openFiles}>file</button>
@@ -111,7 +113,7 @@ function App() {
 
       <p>{greetMsg}</p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
